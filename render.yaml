@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: library-management-system
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: FINE_PER_DAY
+        value: 10
+      - key: MAX_BORROW_LIMIT
+        value: 3
+      - key: DEFAULT_DUE_DAYS
+        value: 7

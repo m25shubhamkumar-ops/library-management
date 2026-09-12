@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title || 'Error - Athenaeum Library' %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body class="flex flex-col min-h-full">
+  <%- include('partials/navbar') %>
+  <%- include('partials/alerts') %>
+
+  <main class="flex-grow flex items-center justify-center px-4 py-16">
+    <div class="max-w-md w-full text-center space-y-6 bg-slate-900/60 p-8 rounded-2xl border border-slate-800 shadow-xl backdrop-blur-sm">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-rose-500/10 text-rose-400 text-3xl font-black border border-rose-500/20">
+        <%= statusCode || 500 %>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-white mb-2"><%= title %></h1>
+        <p class="text-slate-400 text-sm"><%= message %></p>
+      </div>
+      <div class="pt-2 flex justify-center gap-3">
+        <a href="/books" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold transition-all">
+          Browse Catalog
+        </a>
+        <a href="/dashboard" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition-all">
+          Go to Dashboard
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

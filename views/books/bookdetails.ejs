@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body class="flex flex-col min-h-full">
+  <%- include('../partials/navbar') %>
+  <%- include('../partials/alerts') %>
+
+  <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center space-x-2 text-xs text-slate-400">
+      <a href="/books" class="hover:text-white transition-colors">Catalog</a>
+      <span>/</span>
+      <span class="text-slate-200"><%= book.category %></span>
+      <span>/</span>
+      <span class="text-indigo-400 font-medium truncate max-w-xs"><%= book.title %></span>
+    </nav>
+
+    <!-- Book Hero Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        
+        <!-- Left: Decorative Book Spine & Metrics -->
+        <div class="md:col-span-4 flex flex-col items-center">
+          <div class="w-full max-w-[240px] aspect-[2/3] rounded-2xl bg-gradient-to-br from-indigo-950 via-slate-800 to-slate-900 border border-indigo-500/20 shadow-2xl p-6 flex flex-col justify-between relative overflow-hidden">
+            <div class="z-10">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-900/60 text-indigo-300 border border-indigo-700/40">
+                <%= book.category %>
+              </span>
+              <h2 class="text-lg font-bold text-white mt-3 leading-snug line-clamp-3">
+                <%= book.title %>
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">by <%= book.author %></p>
+            </div>
+
+            <div class="z-10 pt-4 border-t border-slate-700/60 text-[11px] font-mono text-slate-400">
+              <div>ISBN: <%= book.ISBN %></div>
+              <div>Year: <%= book.publishedYear || 'N/A' %></div>
+            </div>
+
+            <div class="absolute -right-6 -bottom-6 text-9xl opacity-5 font-serif select-none pointer-events-none">
+              📚
+            </div>
+          </div>
+
+          <!-- Quick Stats Pills -->
+          <div class="w-full max-w-[240px] mt-4 space-y-2 text-xs">
+            <div class="flex justify-between items-center px-3 py-2 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Total Copies:</span>
+              <span class="font-bold text-white"><%= book.totalCopies %></span>
+            </div>
+            <div class="flex justify-between items-center px-3 py-2 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Available:</span>
+              <span class="font-bold <%= book.availableCopies > 0 ? 'text-emerald-400' : 'text-rose-400' %>">
+                <%= book.availableCopies %>
+              </span>
+            </div>
+            <div class="flex justify-between items-center px-3 py-2 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="text-slate-400">Times Borrowed:</span>
+              <span class="font-bold text-indigo-400"><%= book.borrowCount %></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Details & Action Controls -->
+        <div class="md:col-span-8 flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-indigo-900/40 text-indigo-300 border border-indigo-800/50">
+                <%= book.category %>
+              </span>
+              <% if (book.availableCopies > 0) { %>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-950/60 text-emerald-300 border border-emerald-800/50">
+                  ● <%= book.availableCopies %> in library
+                </span>
+              <% } else { %>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-950/60 text-rose-300 border border-rose-800/50">
+                  ● Currently all borrowed
+                </span>
+              <% } %>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <%= book.title %>
+            </h1>
+            <p class="text-sm text-slate-400 mt-1 font-medium">
+              Written by <span class="text-slate-200"><%= book.author %></span>
+            </p>
+
+            <!-- Description -->
+            <div class="mt-6">
+              <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">About This Book</h3>
+              <p class="text-sm text-slate-300 leading-relaxed bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
+                <%= book.description || 'No summary is currently available for this title.' %>
+              </p>
+            </div>
+          </div>
+
+          <!-- Lending & Action Section -->
+          <div class="pt-6 border-t border-slate-800">
+            <% if (!currentUser) { %>
+              <!-- Unauthenticated -->
+              <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <h4 class="text-sm font-semibold text-white">Interested in reading this book?</h4>
+                  <p class="text-xs text-slate-400">Log in or create a free membership to request loans.</p>
+                </div>
+                <a href="/login" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition-colors">
+                  Log In to Borrow
+                </a>
+              </div>
+
+            <% } else if (currentUser.role === 'member') { %>
+              <!-- Member Actions -->
+              <div class="space-y-3">
+                
+                <% if (userActiveIssue) { %>
+                  <% if (userActiveIssue.status === 'requested') { %>
+                    <div class="p-4 rounded-xl bg-amber-950/30 border border-amber-800/40 text-amber-200 text-xs flex items-center justify-between">
+                      <div class="flex items-center space-x-2">
+                        <span>⏳</span>
+                        <span>You have a pending issue request for this book awaiting librarian approval.</span>
+                      </div>
+                      <a href="/issues/my-books" class="underline font-semibold hover:text-white">View in My Books</a>
+                    </div>
+                  <% } else if (userActiveIssue.status === 'issued') { %>
+                    <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-800/40 text-indigo-200 text-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <div>
+                        <div class="font-semibold text-sm text-white">📖 You currently have this book issued!</div>
+                        <div class="text-slate-400 text-xs mt-0.5">
+                          Due Date: <strong class="text-indigo-300"><%= userActiveIssue.dueDate ? new Date(userActiveIssue.dueDate).toDateString() : 'N/A' %></strong>
+                        </div>
+                      </div>
+                      <form action="/issues/return/<%= userActiveIssue._id %>" method="POST">
+                        <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md transition-colors">
+                          Return Book Now
+                        </button>
+                      </form>
+                    </div>
+                  <% } %>
+
+                <% } else if (book.availableCopies <= 0) { %>
+                  <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-900/40 text-rose-300 text-xs flex items-center space-x-2">
+                    <span>🚫</span>
+                    <span>Book currently unavailable. All <%= book.totalCopies %> copies are currently issued to other members.</span>
+                  </div>
+
+                <% } else if (memberBorrowedCount >= maxBorrowLimit) { %>
+                  <div class="p-4 rounded-xl bg-amber-950/30 border border-amber-900/40 text-amber-300 text-xs flex items-center space-x-2">
+                    <span>⚠️</span>
+                    <span>You have reached your maximum borrowing limit (<%= maxBorrowLimit %> books). Please return a book before requesting another.</span>
+                  </div>
+
+                <% } else { %>
+                  <form action="/issues/request/<%= book._id %>" method="POST" class="flex flex-col sm:flex-row items-center gap-3">
+                    <button type="submit"
+                      class="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition-all">
+                      Request Book Issue (7 Days)
+                    </button>
+                    <span class="text-xs text-slate-400">
+                      Active borrowed books: <strong><%= memberBorrowedCount %>/<%= maxBorrowLimit %></strong>
+                    </span>
+                  </form>
+                <% } %>
+
+              </div>
+
+            <% } else if (currentUser.role === 'librarian') { %>
+              <!-- Librarian Controls -->
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="/books/edit/<%= book._id %>"
+                  class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700 transition-colors">
+                  ✏️ Edit Book Details & Copies
+                </a>
+
+                <form action="/books/delete/<%= book._id %>" method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete this book? This action is only allowed if no copies are issued.');">
+                  <button type="submit"
+                    class="px-4 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-semibold border border-rose-800/40 transition-colors">
+                    🗑️ Delete Book
+                  </button>
+                </form>
+
+                <div class="text-xs text-slate-400 ml-auto">
+                  Copies Issued: <strong class="text-amber-400"><%= book.totalCopies - book.availableCopies %></strong>
+                </div>
+              </div>
+            <% } %>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Librarian Recent Issues on this Book -->
+    <% if (currentUser && currentUser.role === 'librarian' && recentIssues && recentIssues.length > 0) { %>
+      <div class="mt-10 bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Lending History for this Title</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="py-3 px-4">Member</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Issue Date</th>
+                <th class="py-3 px-4">Due Date</th>
+                <th class="py-3 px-4">Return Date</th>
+                <th class="py-3 px-4">Fine</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <% recentIssues.forEach(iss => { %>
+                <tr class="hover:bg-slate-800/40 transition-colors">
+                  <td class="py-3 px-4 font-medium text-white">
+                    <%= iss.member ? iss.member.name : 'Unknown' %>
+                    <span class="block text-[10px] text-slate-400"><%= iss.member ? iss.member.email : '' %></span>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase <%= iss.status === 'issued' ? 'bg-indigo-950 text-indigo-300 border border-indigo-800' : (iss.status === 'returned' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400') %>">
+                      <%= iss.status %>
+                    </span>
+                  </td>
+                  <td class="py-3 px-4"><%= iss.issueDate ? new Date(iss.issueDate).toLocaleDateString() : 'N/A' %></td>
+                  <td class="py-3 px-4"><%= iss.dueDate ? new Date(iss.dueDate).toLocaleDateString() : 'N/A' %></td>
+                  <td class="py-3 px-4"><%= iss.returnDate ? new Date(iss.returnDate).toLocaleDateString() : '—' %></td>
+                  <td class="py-3 px-4 font-semibold <%= iss.fine > 0 ? 'text-rose-400' : 'text-slate-400' %>">
+                    <%= iss.fine > 0 ? '₹' + iss.fine : '₹0' %>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } %>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

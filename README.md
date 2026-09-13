@@ -1,8 +1,11 @@
 # 📚 Athenaeum — Library Management & Book Lending System
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shubhamrai9122-creator/library-management)
+
 A modern, full-stack Library Management and Lending System built with **Node.js**, **Express.js**, **EJS**, **MongoDB Atlas (Mongoose)**, **Express Session**, **bcryptjs**, and **Tailwind CSS**. Designed for straightforward deployment on **Render** and tracked via structured **Git** version control.
 
 ---
+
 
 ## 🌟 Core Features
 

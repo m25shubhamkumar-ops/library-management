@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +7,36 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="flex flex-col min-h-full">
+<body class="flex flex-col min-h-full bg-slate-50">
   <%- include('../partials/navbar') %>
   <%- include('../partials/alerts') %>
 
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-800">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-200">
       <div>
         <div class="flex items-center space-x-2">
-          <h1 class="text-2xl font-extrabold text-white tracking-tight">Registered Members</h1>
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-900/60 text-indigo-300 border border-indigo-700/50">
+          <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Registered Members</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
             <%= members.length %> Members
           </span>
         </div>
-        <p class="text-xs text-slate-400 mt-1">Directory of all registered patrons, active borrowing load, and loan history.</p>
+        <p class="text-xs text-slate-500 mt-1">Directory of all registered patrons, active borrowing load, and loan history.</p>
       </div>
     </div>
 
     <!-- Members Table -->
-    <div class="mt-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div class="mt-8 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
       <% if (members.length === 0) { %>
         <div class="p-12 text-center">
           <div class="text-4xl mb-3">👥</div>
-          <h3 class="text-base font-semibold text-slate-200">No members registered yet</h3>
-          <p class="text-xs text-slate-400 mt-1">New user accounts with the role "member" will appear here.</p>
+          <h3 class="text-base font-semibold text-slate-800">No members registered yet</h3>
+          <p class="text-xs text-slate-500 mt-1">New user accounts with the role "member" will appear here.</p>
         </div>
       <% } else { %>
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-slate-300">
-            <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider text-[11px] border-b border-slate-200">
               <tr>
                 <th class="py-3.5 px-6">Member Name</th>
                 <th class="py-3.5 px-6">Email & Contact</th>
@@ -46,12 +46,12 @@
                 <th class="py-3.5 px-6 text-right">Joined Date</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800">
+            <tbody class="divide-y divide-slate-100">
               <% members.forEach(m => { %>
-                <tr class="hover:bg-slate-800/40 transition-colors">
-                  <td class="py-4 px-6 font-semibold text-white">
+                <tr class="hover:bg-slate-50/80 transition-colors">
+                  <td class="py-4 px-6 font-semibold text-slate-900">
                     <div class="flex items-center space-x-3">
-                      <div class="w-8 h-8 rounded-full bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-xs">
+                      <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 border border-indigo-200 flex items-center justify-center font-bold text-xs">
                         <%= m.name.charAt(0).toUpperCase() %>
                       </div>
                       <div>
@@ -60,27 +60,27 @@
                     </div>
                   </td>
                   <td class="py-4 px-6">
-                    <div class="text-slate-200"><%= m.email %></div>
-                    <div class="text-slate-500 text-[11px] font-mono"><%= m.phone || 'No phone provided' %></div>
+                    <div class="text-slate-800"><%= m.email %></div>
+                    <div class="text-slate-400 text-[11px] font-mono"><%= m.phone || 'No phone provided' %></div>
                   </td>
                   <td class="py-4 px-6">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold <%= m.activeCount > 0 ? 'bg-indigo-950 text-indigo-300 border border-indigo-800' : 'bg-slate-800 text-slate-400' %>">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold <%= m.activeCount > 0 ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : 'bg-slate-100 text-slate-600' %>">
                       <%= m.activeCount %> / 3 max
                     </span>
                   </td>
                   <td class="py-4 px-6">
                     <% if (m.pendingCount > 0) { %>
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
                         <%= m.pendingCount %> Pending
                       </span>
                     <% } else { %>
-                      <span class="text-slate-500 text-[11px]">0</span>
+                      <span class="text-slate-400 text-[11px]">0</span>
                     <% } %>
                   </td>
-                  <td class="py-4 px-6 font-mono text-slate-300">
+                  <td class="py-4 px-6 font-mono text-slate-700">
                     <%= m.totalLoansCount %>
                   </td>
-                  <td class="py-4 px-6 text-right text-slate-400 font-mono">
+                  <td class="py-4 px-6 text-right text-slate-500 font-mono">
                     <%= new Date(m.createdAt).toLocaleDateString() %>
                   </td>
                 </tr>

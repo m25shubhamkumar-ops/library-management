@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="flex flex-col min-h-full">
+<body class="flex flex-col min-h-full bg-slate-50">
   <%- include('../partials/navbar') %>
   <%- include('../partials/alerts') %>
 
@@ -15,52 +15,52 @@
     
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-white tracking-tight">Edit Book Details</h1>
-        <p class="text-xs text-slate-400 mt-1">Modifying catalogue record for "<%= book.title %>"</p>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Edit Book Details</h1>
+        <p class="text-xs text-slate-500 mt-1">Modifying catalogue record for "<%= book.title %>"</p>
       </div>
-      <a href="/books/<%= book._id %>" class="text-xs font-semibold text-slate-400 hover:text-white px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+      <a href="/books/<%= book._id %>" class="text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-sm hover:border-slate-300 transition-colors">
         &larr; Back to Details
       </a>
     </div>
 
     <!-- Safeguard Notice Banner -->
-    <div class="mb-6 p-4 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 text-xs text-indigo-200 flex items-start space-x-3">
+    <div class="mb-6 p-4 rounded-2xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-900 flex items-start space-x-3">
       <span class="text-base">ℹ️</span>
       <div>
         <strong>Copy Management Safeguard:</strong> This book currently has <strong><%= issuedCopies %></strong> copy/copies actively issued out of the library.
         Total copies cannot be reduced below <strong><%= issuedCopies %></strong>. Available copies will automatically adjust:
-        <span class="font-mono text-indigo-300 block mt-1">newAvailable = newTotal - <%= issuedCopies %></span>
+        <span class="font-mono text-indigo-700 block mt-1">newAvailable = newTotal - <%= issuedCopies %></span>
       </div>
     </div>
 
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+    <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
       <form action="/books/edit/<%= book._id %>" method="POST" class="space-y-5">
         
         <div>
-          <label for="title" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Book Title *</label>
+          <label for="title" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Book Title *</label>
           <input type="text" id="title" name="title" required value="<%= book.title %>"
-            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="author" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Author *</label>
+            <label for="author" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Author *</label>
             <input type="text" id="author" name="author" required value="<%= book.author %>"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all">
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">ISBN (Locked)</label>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">ISBN (Locked)</label>
             <input type="text" disabled value="<%= book.ISBN %>"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-950/50 border border-slate-800/80 text-slate-500 text-sm font-mono cursor-not-allowed">
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-500 text-sm font-mono cursor-not-allowed">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label for="category" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Category *</label>
+            <label for="category" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Category *</label>
             <select id="category" name="category" required
-              class="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+              class="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all">
               <% categories.forEach(cat => { %>
                 <option value="<%= cat %>" <%= (book.category === cat) ? 'selected' : '' %>>
                   <%= cat %>
@@ -70,34 +70,34 @@
           </div>
 
           <div>
-            <label for="totalCopies" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            <label for="totalCopies" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
               Total Copies * (Min: <%= issuedCopies %>)
             </label>
             <input type="number" id="totalCopies" name="totalCopies" required min="<%= issuedCopies %>" max="1000"
               value="<%= book.totalCopies %>"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all">
           </div>
 
           <div>
-            <label for="publishedYear" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Published Year</label>
+            <label for="publishedYear" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Published Year</label>
             <input type="number" id="publishedYear" name="publishedYear" min="1500" max="<%= new Date().getFullYear() %>"
               value="<%= book.publishedYear %>"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all">
           </div>
         </div>
 
         <div>
-          <label for="description" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Description</label>
+          <label for="description" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Description</label>
           <textarea id="description" name="description" rows="4"
-            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"><%= book.description %></textarea>
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 text-sm transition-all"><%= book.description %></textarea>
         </div>
 
-        <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
-          <a href="/books/<%= book._id %>" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold transition-colors">
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <a href="/books/<%= book._id %>" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold transition-colors">
             Cancel
           </a>
           <button type="submit"
-            class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition-all">
+            class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-md shadow-indigo-600/20 transition-all">
             Update Book Details
           </button>
         </div>

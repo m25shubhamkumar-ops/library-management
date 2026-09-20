@@ -1,44 +1,44 @@
-<nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
+<nav class="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       
       <!-- Brand Logo -->
       <div class="flex items-center space-x-3">
-        <a href="/" class="flex items-center space-x-2 text-white font-bold text-xl tracking-tight hover:text-indigo-400 transition-colors">
-          <span class="text-2xl">📚</span>
-          <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Athenaeum</span>
-          <span class="text-xs bg-indigo-900/60 text-indigo-300 font-semibold px-2 py-0.5 rounded-full border border-indigo-700/50">LMS</span>
+        <a href="/" class="flex items-center space-x-2 font-bold text-xl tracking-tight transition-colors group">
+          <span class="text-2xl transform group-hover:scale-110 transition-transform">📚</span>
+          <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Athenaeum</span>
+          <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-2.5 py-0.5 rounded-full border border-indigo-200">LMS</span>
         </a>
       </div>
 
       <!-- Desktop Navigation Links -->
-      <div class="hidden md:flex items-center space-x-1 lg:space-x-3">
-        <a href="/books" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/books') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+      <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <a href="/books" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/books') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
           Book Catalog
         </a>
 
         <% if (currentUser) { %>
-          <a href="/dashboard" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/dashboard') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+          <a href="/dashboard" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/dashboard') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
             Dashboard
           </a>
 
           <% if (currentUser.role === 'member') { %>
-            <a href="/issues/my-books" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/issues/my-books') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+            <a href="/issues/my-books" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/issues/my-books') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
               My Borrowed Books
             </a>
           <% } %>
 
           <% if (currentUser.role === 'librarian') { %>
-            <a href="/books/add" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/books/add') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+            <a href="/books/add" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/books/add') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
               + Add Book
             </a>
-            <a href="/issues/requests" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/issues/requests') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+            <a href="/issues/requests" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/issues/requests') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
               Issue Requests
             </a>
-            <a href="/issues/issued" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/issues/issued') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+            <a href="/issues/issued" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/issues/issued') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
               Lending Records
             </a>
-            <a href="/members" class="px-3 py-2 rounded-lg text-sm font-medium <%= (path === '/members') ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800' %> transition-colors">
+            <a href="/members" class="px-3.5 py-2 rounded-xl text-sm font-semibold <%= (path === '/members') ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' %> transition-all">
               Members
             </a>
           <% } %>
@@ -48,22 +48,22 @@
       <!-- User Auth Section -->
       <div class="hidden md:flex items-center space-x-3">
         <% if (currentUser) { %>
-          <div class="flex items-center space-x-2 pl-3 border-l border-slate-700">
+          <div class="flex items-center space-x-3 pl-3 border-l border-slate-200">
             <div class="flex flex-col text-right">
-              <span class="text-xs font-semibold text-slate-200"><%= currentUser.name %></span>
-              <span class="text-[10px] uppercase font-bold tracking-wider <%= currentUser.role === 'librarian' ? 'text-amber-400' : 'text-cyan-400' %>">
+              <span class="text-xs font-bold text-slate-800"><%= currentUser.name %></span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full inline-block mt-0.5 <%= currentUser.role === 'librarian' ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-indigo-100 text-indigo-800 border border-indigo-300' %>">
                 <%= currentUser.role %>
               </span>
             </div>
-            <a href="/logout" class="ml-2 inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-rose-300 bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 hover:text-white transition-all shadow-sm">
+            <a href="/logout" class="inline-flex items-center px-3.5 py-1.5 text-xs font-semibold rounded-xl text-rose-700 bg-rose-50 border border-rose-200 hover:bg-rose-100 hover:text-rose-800 transition-all shadow-sm">
               Logout
             </a>
           </div>
         <% } else { %>
-          <a href="/login" class="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-slate-800 transition-colors">
+          <a href="/login" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition-all">
             Log in
           </a>
-          <a href="/register" class="px-4 py-1.5 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-sm transition-all hover:shadow-indigo-500/25">
+          <a href="/register" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-200 transition-all">
             Register
           </a>
         <% } %>
@@ -71,7 +71,7 @@
 
       <!-- Mobile Menu Button -->
       <div class="flex md:hidden items-center">
-        <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
+        <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
@@ -81,27 +81,27 @@
   </div>
 
   <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 bg-slate-900 border-b border-slate-800">
-    <a href="/books" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Catalog</a>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 bg-white border-b border-slate-200 shadow-lg">
+    <a href="/books" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">Catalog</a>
     <% if (currentUser) { %>
-      <a href="/dashboard" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Dashboard</a>
+      <a href="/dashboard" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">Dashboard</a>
       <% if (currentUser.role === 'member') { %>
-        <a href="/issues/my-books" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">My Books</a>
+        <a href="/issues/my-books" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">My Books</a>
       <% } %>
       <% if (currentUser.role === 'librarian') { %>
-        <a href="/books/add" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">+ Add Book</a>
-        <a href="/issues/requests" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Issue Requests</a>
-        <a href="/issues/issued" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Lending Records</a>
-        <a href="/members" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Members</a>
+        <a href="/books/add" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">+ Add Book</a>
+        <a href="/issues/requests" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">Issue Requests</a>
+        <a href="/issues/issued" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">Lending Records</a>
+        <a href="/members" class="block px-3 py-2 rounded-xl text-base font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100">Members</a>
       <% } %>
-      <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
-        <span class="text-sm text-slate-400"><%= currentUser.name %> (<%= currentUser.role %>)</span>
-        <a href="/logout" class="px-3 py-1 rounded bg-rose-900 text-rose-200 text-xs font-semibold">Logout</a>
+      <div class="pt-3 mt-2 border-t border-slate-200 flex items-center justify-between">
+        <span class="text-sm font-semibold text-slate-700"><%= currentUser.name %> (<%= currentUser.role %>)</span>
+        <a href="/logout" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold hover:bg-rose-100">Logout</a>
       </div>
     <% } else { %>
-      <div class="pt-2 border-t border-slate-800 flex space-x-2">
-        <a href="/login" class="flex-1 text-center py-2 rounded bg-slate-800 text-white text-sm font-semibold">Log in</a>
-        <a href="/register" class="flex-1 text-center py-2 rounded bg-indigo-600 text-white text-sm font-semibold">Register</a>
+      <div class="pt-3 mt-2 border-t border-slate-200 flex space-x-2">
+        <a href="/login" class="flex-1 text-center py-2 rounded-xl bg-slate-100 text-slate-700 text-sm font-semibold hover:bg-slate-200">Log in</a>
+        <a href="/register" class="flex-1 text-center py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 shadow-sm">Register</a>
       </div>
     <% } %>
   </div>

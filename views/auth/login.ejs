@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="flex flex-col min-h-full">
+<body class="flex flex-col min-h-full bg-slate-50">
   <%- include('../partials/navbar') %>
   <%- include('../partials/alerts') %>
 
@@ -15,50 +15,50 @@
     <div class="max-w-md w-full space-y-6">
       <!-- Header -->
       <div class="text-center">
-        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-indigo-600/20 text-indigo-400 text-3xl mb-3 border border-indigo-500/20 shadow-inner">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-600 text-3xl mb-3 border border-indigo-200 shadow-sm">
           📖
         </div>
-        <h2 class="text-3xl font-extrabold text-white tracking-tight">Sign in to your account</h2>
-        <p class="mt-2 text-sm text-slate-400">
-          Or <a href="/register" class="font-medium text-indigo-400 hover:text-indigo-300">create a new membership account</a>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Sign in to your account</h2>
+        <p class="mt-2 text-sm text-slate-600">
+          Or <a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-700 underline">create a new membership account</a>
         </p>
       </div>
 
       <!-- Card -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl">
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl shadow-slate-200/50">
         <form class="space-y-5" action="/login" method="POST">
           <div>
-            <label for="email" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+            <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Email Address</label>
             <input id="email" name="email" type="email" required value="<%= typeof email !== 'undefined' ? email : '' %>"
-              class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm"
+              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm font-medium"
               placeholder="name@example.com">
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label for="password" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
+              <label for="password" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Password</label>
             </div>
             <input id="password" name="password" type="password" required
-              class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm"
+              class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm font-medium"
               placeholder="••••••••">
           </div>
 
           <button type="submit"
-            class="w-full py-3.5 px-4 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-600/30 transition-all">
+            class="w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-200 transition-all">
             Sign In
           </button>
         </form>
 
         <!-- Quick Demo Credentials Filler -->
-        <div class="mt-6 pt-6 border-t border-slate-800">
-          <p class="text-xs text-center text-slate-400 font-medium mb-3">Quick Demo Credentials (One-Click Fill):</p>
-          <div class="grid grid-cols-2 gap-2">
+        <div class="mt-6 pt-6 border-t border-slate-100">
+          <p class="text-xs text-center text-slate-500 font-semibold mb-3">Quick Demo Credentials (One-Click Fill):</p>
+          <div class="grid grid-cols-2 gap-2.5">
             <button type="button" onclick="fillCredentials('librarian@library.com', 'Admin@123')"
-              class="px-3 py-2 text-xs font-medium rounded-lg bg-amber-950/40 text-amber-300 border border-amber-800/40 hover:bg-amber-900/60 transition-colors text-center">
+              class="px-3.5 py-2.5 text-xs font-bold rounded-xl bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 transition-all text-center shadow-sm">
               🔑 Librarian / Admin
             </button>
             <button type="button" onclick="fillCredentials('john@member.com', 'Member@123')"
-              class="px-3 py-2 text-xs font-medium rounded-lg bg-cyan-950/40 text-cyan-300 border border-cyan-800/40 hover:bg-cyan-900/60 transition-colors text-center">
+              class="px-3.5 py-2.5 text-xs font-bold rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition-all text-center shadow-sm">
               👤 Member (John)
             </button>
           </div>

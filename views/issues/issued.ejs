@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,47 +7,47 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body class="flex flex-col min-h-full">
+<body class="flex flex-col min-h-full bg-slate-50">
   <%- include('../partials/navbar') %>
   <%- include('../partials/alerts') %>
 
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-800">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-6 border-b border-slate-200">
       <div>
-        <h1 class="text-2xl font-extrabold text-white tracking-tight">Lending & Return Records</h1>
-        <p class="text-xs text-slate-400 mt-1">Audit active book loans, track due dates, process book returns, and collect overdue fines.</p>
+        <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Lending & Return Records</h1>
+        <p class="text-xs text-slate-500 mt-1">Audit active book loans, track due dates, process book returns, and collect overdue fines.</p>
       </div>
 
       <!-- Filter Buttons -->
-      <div class="flex items-center space-x-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+      <div class="flex items-center space-x-1 bg-white p-1 rounded-xl border border-slate-200 shadow-sm text-xs">
         <a href="/issues/issued?filterStatus=all"
-          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'all' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white' %>">
+          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'all' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900' %>">
           All Records
         </a>
         <a href="/issues/issued?filterStatus=issued"
-          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'issued' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white' %>">
+          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'issued' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900' %>">
           Active Loans
         </a>
         <a href="/issues/issued?filterStatus=returned"
-          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'returned' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white' %>">
+          class="px-3 py-1.5 rounded-lg font-medium transition-colors <%= currentFilter === 'returned' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900' %>">
           Returned
         </a>
       </div>
     </div>
 
     <!-- Table -->
-    <div class="mt-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div class="mt-8 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
       <% if (issues.length === 0) { %>
         <div class="p-12 text-center">
           <div class="text-4xl mb-3">📂</div>
-          <h3 class="text-base font-semibold text-slate-200">No records found</h3>
-          <p class="text-xs text-slate-400 mt-1">No book loans match the selected filter.</p>
+          <h3 class="text-base font-semibold text-slate-800">No records found</h3>
+          <p class="text-xs text-slate-500 mt-1">No book loans match the selected filter.</p>
         </div>
       <% } else { %>
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-slate-300">
-            <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[11px] border-b border-slate-800">
+          <table class="w-full text-left text-xs text-slate-600">
+            <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider text-[11px] border-b border-slate-200">
               <tr>
                 <th class="py-3.5 px-6">Book Title</th>
                 <th class="py-3.5 px-6">Member</th>
@@ -58,39 +58,39 @@
                 <th class="py-3.5 px-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800">
+            <tbody class="divide-y divide-slate-100">
               <% issues.forEach(item => { %>
-                <tr class="hover:bg-slate-800/40 transition-colors">
+                <tr class="hover:bg-slate-50/80 transition-colors">
                   
                   <!-- Book -->
-                  <td class="py-4 px-6 font-semibold text-white">
+                  <td class="py-4 px-6 font-semibold text-slate-900">
                     <% if (item.book) { %>
-                      <a href="/books/<%= item.book._id %>" class="hover:text-indigo-300 transition-colors">
+                      <a href="/books/<%= item.book._id %>" class="hover:text-indigo-600 transition-colors">
                         <%= item.book.title %>
                       </a>
-                      <span class="block text-[11px] text-slate-500 font-normal">
+                      <span class="block text-[11px] text-slate-400 font-normal">
                         Category: <%= item.book.category %>
                       </span>
                     <% } else { %>
-                      <span class="text-rose-400 italic">Deleted Title</span>
+                      <span class="text-rose-500 italic">Deleted Title</span>
                     <% } %>
                   </td>
 
                   <!-- Member -->
                   <td class="py-4 px-6">
-                    <div class="font-medium text-slate-200"><%= item.member ? item.member.name : 'Unknown' %></div>
-                    <div class="text-[11px] text-slate-500"><%= item.member ? item.member.email : '' %></div>
+                    <div class="font-medium text-slate-800"><%= item.member ? item.member.name : 'Unknown' %></div>
+                    <div class="text-[11px] text-slate-400"><%= item.member ? item.member.email : '' %></div>
                   </td>
 
                   <!-- Issue Date -->
-                  <td class="py-4 px-6 text-slate-400 font-mono">
+                  <td class="py-4 px-6 text-slate-600 font-mono">
                     <%= item.issueDate ? new Date(item.issueDate).toLocaleDateString() : '—' %>
                   </td>
 
                   <!-- Due Date -->
                   <td class="py-4 px-6 font-mono">
                     <% if (item.dueDate) { %>
-                      <span class="<%= item.isDynamicallyOverdue ? 'text-rose-400 font-bold' : 'text-slate-300' %>">
+                      <span class="<%= item.isDynamicallyOverdue ? 'text-rose-600 font-bold' : 'text-slate-700' %>">
                         <%= new Date(item.dueDate).toLocaleDateString() %>
                       </span>
                     <% } else { %>
@@ -101,15 +101,15 @@
                   <!-- Status Pill -->
                   <td class="py-4 px-6">
                     <% if (item.status === 'returned') { %>
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-950/80 text-emerald-400 border border-emerald-800/60">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
                         Returned
                       </span>
                     <% } else if (item.isDynamicallyOverdue) { %>
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-950/80 text-rose-400 border border-rose-800/60">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
                         Overdue (+<%= item.overdueDays %>d)
                       </span>
                     <% } else { %>
-                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-950/80 text-indigo-300 border border-indigo-800/60">
+                      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200">
                         Active Loan
                       </span>
                     <% } %>
@@ -119,14 +119,14 @@
                   <td class="py-4 px-6 font-semibold">
                     <% const displayFine = item.status === 'returned' ? item.fine : item.calculatedFine; %>
                     <% if (displayFine > 0) { %>
-                      <span class="text-rose-400 font-mono">
+                      <span class="text-rose-600 font-mono">
                         ₹<%= displayFine %>
                         <% if (item.status === 'issued') { %>
-                          <span class="text-[10px] text-slate-500 font-normal">(accruing)</span>
+                          <span class="text-[10px] text-slate-400 font-normal">(accruing)</span>
                         <% } %>
                       </span>
                     <% } else { %>
-                      <span class="text-slate-500 font-mono">₹0</span>
+                      <span class="text-slate-400 font-mono">₹0</span>
                     <% } %>
                   </td>
 
@@ -141,7 +141,7 @@
                         </button>
                       </form>
                     <% } else { %>
-                      <span class="text-[11px] text-slate-500">
+                      <span class="text-[11px] text-slate-400">
                         Returned <%= item.returnDate ? new Date(item.returnDate).toLocaleDateString() : '' %>
                       </span>
                     <% } %>

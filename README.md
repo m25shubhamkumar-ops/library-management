@@ -1,204 +1,88 @@
 # 📚 Athenaeum — Library Management & Book Lending System
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shubhamrai9122-creator/library-management)
-
-A modern, full-stack Library Management and Lending System built with **Node.js**, **Express.js**, **EJS**, **MongoDB Atlas (Mongoose)**, **Express Session**, **bcryptjs**, and **Tailwind CSS**. Designed for straightforward deployment on **Render** and tracked via structured **Git** version control.
+A full-stack, server-side rendered web platform engineered for libraries to manage catalog inventory, member lending lifecycles, and automated overdue fine calculations.
 
 ---
 
-
-## 🌟 Core Features
-
-- 🔐 **Role-Based Authentication (RBAC)**:
-  - **Member**: Browse catalogue, live search & category filters, request book issues, monitor active loans, track due dates & dynamically calculated overdue fines, initiate book returns.
-  - **Librarian (Admin)**: Full CRUD catalog management with copy safeguards, review & approve/reject book loan requests, process returns with fine calculation, manage member rosters, and access analytical dashboards.
-- 📦 **Inventory & Copy Tracking**:
-  - `totalCopies` and `availableCopies` dual tracking.
-  - **Safeguard 1 (Zero-Copy Guard)**: Prevent requesting or issuing books when `availableCopies <= 0`.
-  - **Safeguard 2 (Active Borrowing Limit)**: Per-member cap of **3 active books** concurrently.
-  - **Safeguard 3 (Duplicate Loan Prevention)**: Members cannot request or borrow multiple copies of the same book at once.
-  - **Safeguard 4 (Safe Deletion)**: Deletion is rejected if any copies are out on loan (`totalCopies !== availableCopies`).
-  - **Safeguard 5 (Safe Edit)**: Total copies cannot be reduced below the number of currently issued copies.
-- 💰 **Automatic Fine Calculation**:
-  - Automatically assesses fines at **₹10 per overdue day** past the return due date.
-  - Dynamically displayed in real-time on member and librarian dashboards.
-- 📊 **Analytical Dashboard**:
-  - Real-time aggregate counters (Total Titles, Total Copies, Issued Books, Available Books, Overdue Books, Total Members).
-  - Top 5 Most Borrowed Books ranking (via `borrowCount`).
-  - Upcoming and Overdue Returns monitor.
+## 📌 1. Project Overview & Objective
+- **Problem Solved**: Replaces manual paper registers with an automated digital system for managing books, issue requests, and returns.
+- **Target Audience**: Educational institutions, university libraries, and public reading rooms.
+- **Architecture Model**: Server-Side Rendering (SSR) using Express.js and EJS templates with stateful session management.
+- **Data Persistence**: MongoDB Atlas cloud database with Mongoose ODM modeling and atomic copy counters.
+- **Access Control**: Role-Based Access Control (RBAC), bcrypt password hashing (10 salt rounds), and HTTP-only session cookies.
 
 ---
 
-## 🛠️ Technology Stack
-
-| Layer | Technology |
-|---|---|
-| **Frontend** | EJS (Embedded JavaScript) + HTML5 + CSS3 + Tailwind CSS |
-| **Backend** | Node.js (v18+) + Express.js |
-| **Database** | MongoDB Atlas (via Mongoose ODM) |
-| **Authentication** | Express Session + Bcrypt password hashing (10 salt rounds) |
-| **Deployment** | Render (Blueprint via `render.yaml`) |
-| **Version Control** | Git & GitHub |
+## 🛠️ 2. Technology Stack
+- **Frontend**: EJS (Embedded JavaScript), HTML5, Vanilla JavaScript, and Tailwind CSS.
+- **Backend**: Node.js (v18+) with Express.js application framework.
+- **Database**: MongoDB Atlas cloud cluster connected via Mongoose ODM.
+- **Session & Auth**: express-session with connect-flash and bcryptjs encryption.
+- **Deployment**: Render Web Service paired with MongoDB Atlas cloud database.
+- **Version Control & Tests**: Git & GitHub with automated operational safeguard tests.
 
 ---
 
-## 📁 Directory Structure
-
-```
-library-management/
-├── config/
-│   └── db.js                 # Resilient MongoDB Atlas connection
-├── controllers/
-│   ├── authController.js      # Login, Register, Logout
-│   ├── bookController.js      # Catalog browse, search, add, edit, delete
-│   ├── dashboardController.js # Analytics & role-based dashboard metrics
-│   ├── issueController.js     # Lending requests, approvals, returns, fines
-│   └── memberController.js    # Member roster & borrowing statistics
-├── middleware/
-│   ├── authMiddleware.js      # isLoggedIn & isGuest guards
-│   └── roleMiddleware.js      # isLibrarian & isMember RBAC guards
-├── models/
-│   ├── Book.js                # Inventory, copy counters, borrowCount
-│   ├── Issue.js               # Lending lifecycle, due dates, fines
-│   └── User.js                # Password hashing, roles (member/librarian)
-├── routes/
-│   ├── authRoutes.js
-│   ├── bookRoutes.js
-│   ├── dashboardRoutes.js
-│   ├── issueRoutes.js
-│   └── memberRoutes.js
-├── views/
-│   ├── auth/                  # login.ejs, register.ejs
-│   ├── books/                 # allbooks.ejs, bookdetails.ejs, addbook.ejs, editbook.ejs
-│   ├── dashboard/             # dashboard.ejs (librarian), member-dashboard.ejs
-│   ├── issues/                # requests.ejs, issued.ejs, mybooks.ejs
-│   ├── members/               # allmembers.ejs
-│   ├── partials/              # navbar.ejs, footer.ejs, alerts.ejs
-│   └── error.ejs              # 404, 403, 500 error templates
-├── public/
-│   ├── css/custom.css         # Custom animations & scrollbars
-│   └── js/main.js             # Flash message auto-dismiss
-├── seeds/
-│   └── seed.js                # Demo books, members, librarian & sample loans
-├── tests/
-│   └── businessRules.test.js  # Automated tests for all 8 business rules
-├── .env.example               # Template environment variables
-├── .gitignore
-├── render.yaml                # Render Blueprint deployment specification
-├── Procfile
-├── app.js                     # Express application entrypoint
-└── package.json
-```
+## 👥 3. User Roles & Access Control
+- **Member (Reader / Student)**:
+  - Browse complete book catalogue with real-time multi-field search and category filtering.
+  - Submit borrowing requests for books with available physical inventory.
+  - Track active loans, return due dates, and dynamic overdue fines on personal dashboard.
+  - View historical borrowings and initiate book returns.
+- **Librarian (Admin)**:
+  - Full catalog CRUD: add new titles, update book details, and adjust copy counts safely.
+  - Review incoming loan requests with one-click approve or reject actions.
+  - Process physical book returns, inspect copy conditions, and collect overdue fines.
+  - Monitor member rosters and institutional analytics on the central dashboard.
 
 ---
 
-## 🚀 Quick Start (Local Setup)
-
-### 1. Clone & Install Dependencies
-
-```bash
-git clone <repository-url>
-cd library-management
-npm install
-```
-
-### 2. Configure Environment
-
-Copy `.env.example` to `.env`:
-
-```bash
-cp .env.example .env
-```
-
-Update your `MONGO_URI` with your MongoDB Atlas or local MongoDB connection:
-
-```env
-PORT=3000
-NODE_ENV=development
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/library_db?retryWrites=true&w=majority
-SESSION_SECRET=super_secret_library_session_key_2026
-FINE_PER_DAY=10
-MAX_BORROW_LIMIT=3
-DEFAULT_DUE_DAYS=7
-```
-
-### 3. Seed Demo Data (Optional)
-
-```bash
-npm run seed
-```
-
-### 4. Start the Application
-
-```bash
-# Production start
-npm start
-
-# Development mode with live reload
-npm run dev
-```
-
-Visit **`http://localhost:3000`** in your browser.
+## 🛡️ 4. Inventory Safeguards & Business Rules
+- **Rule 1 (Zero-Copy Guard)**: Borrow requests and issuance are blocked when available copies equal zero.
+- **Rule 2 (Active Borrow Limit)**: Members cannot hold more than 3 active books simultaneously.
+- **Rule 3 (Duplicate Request Block)**: Prevents requesting or borrowing duplicate copies of the same title concurrently.
+- **Rule 4 (Safe Copy Modification)**: Total copies cannot be reduced below currently issued copies.
+- **Rule 5 (Protected Deletion)**: Books with active issued loans cannot be deleted from the database.
 
 ---
 
-## 🔑 Demo Credentials
-
-| Role | Email | Password | Pre-loaded State |
-|---|---|---|---|
-| **Librarian / Admin** | `librarian@library.com` | `Admin@123` | Full administrative privileges |
-| **Member (John)** | `john@member.com` | `Member@123` | 1 active loan (*The Alchemist*), 1 pending request |
-| **Member (Emma)** | `emma@member.com` | `Member@123` | 1 overdue loan (*Atomic Habits*, 4 days late, ₹40 fine) |
-| **Member (David)** | `david@member.com` | `Member@123` | 1 returned loan (*Clean Code*, fine settled) |
-
-*Note: The login page includes convenient one-click buttons to instantly autofill these credentials.*
+## ⏱️ 5. Lending Lifecycle & Fine Calculation
+- **Issue Workflow**: Member requests book -> Librarian reviews -> Due date set (Issue Date + 7 days) -> Available copies decrement -> Book issued.
+- **Return Workflow**: Member returns book -> Available copies increment -> Overdue fine assessed -> Status marked returned.
+- **Fine Formula (Stretch Goal)**: Accrues ₹10 per calendar day overdue past the assigned due date:
+  Overdue Days = max(0, Return Date - Due Date)
+  Fine Amount = Overdue Days * ₹10/day
 
 ---
 
-## 🧪 Automated Testing
-
-Run the business rule verification test suite:
-
-```bash
-npm test
-```
-
-Verifies all 8 critical operational safeguards:
-- `Rule 1`: Prevent issue when availableCopies <= 0
-- `Rule 2`: Maximum borrowing limit (3 books) enforcement
-- `Rule 3`: Duplicate concurrent book request prevention
-- `Rule 4`: Prevent book deletion when copies are issued
-- `Rule 5`: Role authorization (Member cannot access librarian endpoints)
-- `Rule 6`: Bcrypt password hashing & comparison
-- `Rule 7`: Due date overdue fine calculation (₹10/day)
-- `Rule 8`: Total copies update safeguard (cannot reduce below issued copies)
+## 📊 6. Analytics Dashboard & Key Metrics
+- **Catalog Overview**: Total unique titles, total physical copies, and currently available copies.
+- **Circulation Stats**: Active issued loans, pending borrow requests, and flagged overdue returns.
+- **Popular Titles**: Top 5 Most Borrowed Books ranking based on cumulative circulation count.
+- **Member Records**: Active registered accounts and outstanding fine balances.
 
 ---
 
-## 🌐 Deploying to Render
+## 🔑 7. Demo Credentials
+- **Librarian / Admin**: Email: `librarian@library.com` | Password: `Admin@123`
+- **Member (John)**: Email: `john@member.com` | Password: `Member@123` (1 active loan)
+- **Member (Emma)**: Email: `emma@member.com` | Password: `Member@123` (1 overdue loan, ₹40 fine)
+- **Member (David)**: Email: `david@member.com` | Password: `Member@123` (1 returned loan)
+*(Note: Login screen features 1-click credential autofill buttons for rapid demonstration).*
 
-This repository is ready for immediate deployment on **[Render](https://render.com/)**:
+---
 
-### Option A: Using `render.yaml` Blueprint (Recommended)
-1. Push your repository to **GitHub**.
-2. Log in to your [Render Dashboard](https://dashboard.render.com).
-3. Click **New +** → **Blueprint**.
-4. Connect your GitHub repository.
-5. In the environment variables prompt, enter your **`MONGO_URI`** (MongoDB Atlas connection string).
-6. Click **Apply**. Render will automatically build and deploy the web service.
+## ⚡ 8. Local Setup & Testing Instructions
+- **Clone Repository**: `git clone https://github.com/m25shubhamkumar-ops/library-management.git`
+- **Install Dependencies**: `cd library-management && npm install`
+- **Environment Setup**: Define `PORT=3000` and `MONGO_URI` in `.env` file.
+- **Seed Sample Data**: Run `npm run seed` to populate demo books, members, and loans.
+- **Run Tests**: Run `npm test` to execute 8 automated operational safeguard tests.
+- **Start Application**: Run `npm start` and visit `http://localhost:3000`.
 
-### Option B: Manual Web Service Setup
-1. On Render, click **New +** → **Web Service**.
-2. Connect your GitHub repository.
-3. Configure the following settings:
-   - **Environment**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-4. Add the following **Environment Variables**:
-   - `NODE_ENV` = `production`
-   - `MONGO_URI` = `mongodb+srv://<username>:<password>@cluster0.mongodb.net/library_db?retryWrites=true&w=majority`
-   - `SESSION_SECRET` = `<random-32-char-secret>`
-   - `FINE_PER_DAY` = `10`
-   - `MAX_BORROW_LIMIT` = `3`
-   - `DEFAULT_DUE_DAYS` = `7`
-5. Click **Create Web Service**.
+---
+
+## 🌐 9. Live Deployment & Repository Links
+- **GitHub Repository**: https://github.com/m25shubhamkumar-ops/library-management
+- **Live Deployed Application**: https://library-management-system-kint.onrender.com
+- **Hosting Platform**: Render Web Services with MongoDB Atlas database cluster.

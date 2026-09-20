@@ -20,36 +20,32 @@ const seedDatabase = async () => {
     ]);
 
     console.log('[Seed] Creating demo users...');
-    const salt = await bcrypt.genSalt(10);
-    const adminHash = await bcrypt.hash('Admin@123', salt);
-    const memberHash = await bcrypt.hash('Member@123', salt);
-
     const [librarian, memberJohn, memberEmma, memberDavid] = await User.create([
       {
         name: 'Chief Librarian Sarah',
         email: 'librarian@library.com',
-        password: adminHash,
+        password: 'Admin@123',
         role: 'librarian',
         phone: '+91 9876543200',
       },
       {
         name: 'John Doe',
         email: 'john@member.com',
-        password: memberHash,
+        password: 'Member@123',
         role: 'member',
         phone: '+91 9876543210',
       },
       {
         name: 'Emma Watson',
         email: 'emma@member.com',
-        password: memberHash,
+        password: 'Member@123',
         role: 'member',
         phone: '+91 9876543211',
       },
       {
         name: 'David Miller',
         email: 'david@member.com',
-        password: memberHash,
+        password: 'Member@123',
         role: 'member',
         phone: '+91 9876543212',
       },

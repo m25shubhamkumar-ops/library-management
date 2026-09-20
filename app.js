@@ -5,6 +5,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
 // Route Imports
@@ -65,6 +66,18 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   res.locals.currentYear = new Date().getFullYear();
   next();
+});
+
+// Health check route
+app.get('/health', (req, res) => {
+  const state = mongoose.connection.readyState;
+  const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+  res.json({
+    status: state === 1 ? 'OK' : 'ERROR',
+    dbState: states[state] || state,
+    host: mongoose.connection.host || null,
+    dbName: mongoose.connection.name || null,
+  });
 });
 
 // Root Route

@@ -46,8 +46,15 @@ exports.getAllBooks = async (req, res) => {
     });
   } catch (err) {
     console.error('Error fetching books:', err);
-    req.flash('error', 'Unable to fetch books catalog.');
-    res.redirect('/dashboard');
+    res.render('books/allbooks', {
+      title: 'Book Catalog - Library Management',
+      path: '/books',
+      books: [],
+      categories: CATEGORIES,
+      selectedCategory: 'All',
+      searchQuery: '',
+      totalCatalogCount: 0,
+    });
   }
 };
 

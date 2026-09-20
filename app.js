@@ -77,6 +77,7 @@ app.get('/health', (req, res) => {
     dbState: states[state] || state,
     host: mongoose.connection.host || null,
     dbName: mongoose.connection.name || null,
+    connectionError: connectDB.getConnectionError(),
   });
 });
 
